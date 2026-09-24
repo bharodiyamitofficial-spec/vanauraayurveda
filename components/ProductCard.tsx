@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
+import { Eye, MessageCircle } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { whatsappLink } from "@/lib/site";
 import SoapIllustration from "@/components/SoapIllustration";
@@ -27,6 +27,12 @@ export default function ProductCard({ product }: { product: Product }) {
             theme={product.theme}
             className="h-40 w-40 transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3 sm:h-48 sm:w-48"
           />
+          <div className="absolute inset-0 flex items-center justify-center bg-forest/0 opacity-0 transition-all duration-300 group-hover:bg-forest/25 group-hover:opacity-100">
+            <span className="flex translate-y-2 items-center gap-1.5 rounded-full bg-cream px-4 py-2 text-xs font-semibold text-forest shadow-lg transition-transform duration-300 group-hover:translate-y-0">
+              <Eye className="h-3.5 w-3.5" />
+              View Details
+            </span>
+          </div>
         </Link>
 
         <div className="flex flex-1 flex-col p-6">

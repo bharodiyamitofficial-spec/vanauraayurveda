@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -10,9 +11,8 @@ import {
   Sprout,
 } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import Float from "@/components/Float";
 import SectionHeading from "@/components/SectionHeading";
-import SoapIllustration from "@/components/SoapIllustration";
-import { products } from "@/lib/products";
 import { site, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -54,14 +54,14 @@ const promises = [
 ];
 
 const ingredientSpotlight = [
-  { name: "Neem", benefit: "Antibacterial, calms acne-prone skin" },
-  { name: "Turmeric", benefit: "Brightens and evens out skin tone" },
-  { name: "Sandalwood", benefit: "Soothes and adds a natural glow" },
-  { name: "Aloe Vera", benefit: "Hydrates and cools irritated skin" },
-  { name: "Activated Charcoal", benefit: "Draws out deep-set impurities" },
-  { name: "Rose Petal", benefit: "Tones and gently softens skin" },
-  { name: "Lavender", benefit: "Calms the mind, relaxes the senses" },
-  { name: "Kesar (Saffron)", benefit: "Traditional Ayurvedic glow booster" },
+  { name: "Neem", benefit: "Antibacterial, calms acne-prone skin", image: "/images/ing-neem.jpg" },
+  { name: "Turmeric", benefit: "Brightens and evens out skin tone", image: "/images/ing-turmeric.jpg" },
+  { name: "Sandalwood", benefit: "Soothes and adds a natural glow", image: "/images/ing-sandalwood.jpg" },
+  { name: "Aloe Vera", benefit: "Hydrates and cools irritated skin", image: "/images/ing-aloevera.jpg" },
+  { name: "Activated Charcoal", benefit: "Draws out deep-set impurities", image: "/images/ing-charcoal.jpg" },
+  { name: "Rose Petal", benefit: "Tones and gently softens skin", image: "/images/ing-rose.jpg" },
+  { name: "Lavender", benefit: "Calms the mind, relaxes the senses", image: "/images/ing-lavender.jpg" },
+  { name: "Kesar (Saffron)", benefit: "Traditional Ayurvedic glow booster", image: "/images/ing-saffron.jpg" },
 ];
 
 const timeline = [
@@ -112,17 +112,23 @@ export default function AboutPage() {
 
       {/* Story */}
       <section className="section-padding">
-        <div className="container-custom grid items-center gap-14 lg:grid-cols-2">
-          <Reveal className="grid grid-cols-2 gap-5">
-            {products.slice(0, 4).map((product) => (
-              <div
-                key={product.id}
-                className="flex aspect-square items-center justify-center rounded-3xl"
-                style={{ backgroundColor: product.theme.soft }}
-              >
-                <SoapIllustration theme={product.theme} className="h-24 w-24 sm:h-28 sm:w-28" />
+        <div className="container-custom grid items-center gap-16 lg:grid-cols-2">
+          <Reveal className="relative">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl">
+              <Image
+                src="/images/about-story.jpg"
+                alt="Handmade soap bars wrapped in kraft paper and twine beside dried lavender"
+                fill
+                sizes="(min-width: 1024px) 480px, 90vw"
+                className="object-cover"
+              />
+            </div>
+            <Float className="absolute -bottom-6 -right-6 hidden sm:block" duration={4.5} delay={0.2}>
+              <div className="card-surface rounded-2xl px-5 py-4 text-center">
+                <p className="font-display text-2xl text-forest">50</p>
+                <p className="text-[0.6rem] uppercase tracking-wide text-ink/50">Bars per Batch</p>
               </div>
-            ))}
+            </Float>
           </Reveal>
 
           <Reveal delay={0.1}>
@@ -214,13 +220,19 @@ export default function AboutPage() {
             </h2>
           </Reveal>
 
-          <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-4">
+          <div className="mt-14 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
             {ingredientSpotlight.map((ingredient, i) => (
-              <Reveal key={ingredient.name} delay={i * 0.05} className="text-center">
-                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-cream/10 text-gold-light">
-                  <Leaf className="h-6 w-6" strokeWidth={1.5} />
-                </span>
-                <h3 className="font-display mt-3 text-base">{ingredient.name}</h3>
+              <Reveal key={ingredient.name} delay={i * 0.05} className="group text-center">
+                <div className="relative mx-auto h-24 w-24 overflow-hidden rounded-full ring-2 ring-gold/40 ring-offset-4 ring-offset-forest transition-all duration-500 group-hover:ring-gold sm:h-28 sm:w-28">
+                  <Image
+                    src={ingredient.image}
+                    alt={ingredient.name}
+                    fill
+                    sizes="112px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <h3 className="font-display mt-4 text-base">{ingredient.name}</h3>
                 <p className="mt-1 text-xs leading-relaxed text-cream/60">{ingredient.benefit}</p>
               </Reveal>
             ))}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -9,9 +10,10 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
-import HeroIllustration from "@/components/HeroIllustration";
-import SoapIllustration from "@/components/SoapIllustration";
 import Reveal from "@/components/Reveal";
+import Float from "@/components/Float";
+import Marquee from "@/components/Marquee";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import SectionHeading from "@/components/SectionHeading";
 import ProductCard from "@/components/ProductCard";
 import Testimonials from "@/components/Testimonials";
@@ -65,6 +67,24 @@ const process = [
   },
 ];
 
+const gallery = [
+  {
+    src: "/images/gallery-shelf.jpg",
+    alt: "Glass soap dispenser and rolled towel styled on a warm bathroom shelf",
+    caption: "The Ritual Shelf",
+  },
+  {
+    src: "/images/gallery-skincare.jpg",
+    alt: "Dropper bottle of facial oil beside a lit candle and dried flowers",
+    caption: "Evening Wind-Down",
+  },
+  {
+    src: "/images/gallery-texture.jpg",
+    alt: "Close-up of rich, creamy natural soap lather",
+    caption: "Rich, Creamy Lather",
+  },
+];
+
 const faqItems = [
   {
     question: "Are Vanaura soaps suitable for sensitive skin?",
@@ -96,7 +116,7 @@ export default function Home() {
         <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-sage-light/30 blur-3xl" />
         <div className="pointer-events-none absolute -right-16 top-40 h-64 w-64 rounded-full bg-gold-light/25 blur-3xl" />
 
-        <div className="container-custom grid items-center gap-12 py-14 lg:grid-cols-2 lg:gap-8 lg:py-20">
+        <div className="container-custom grid items-center gap-16 py-14 lg:grid-cols-2 lg:gap-8 lg:py-20">
           <Reveal>
             <span className="eyebrow">Handcrafted Ayurvedic Soaps</span>
             <h1 className="font-display mt-4 text-4xl leading-[1.1] text-forest sm:text-5xl lg:text-[3.4rem]">
@@ -134,13 +154,44 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={0.15} className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <HeroIllustration className="w-full" />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-forest/10 lg:aspect-[3/4]">
+              <Image
+                src="/images/hero-soap.jpg"
+                alt="Stack of handmade Vanaura Ayurveda soap bars with dried rose petals on natural linen"
+                fill
+                priority
+                sizes="(min-width: 1024px) 560px, 90vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-forest/25 via-transparent to-transparent" />
+            </div>
+
+            <Float className="absolute -top-6 -left-6 hidden sm:block" duration={4.5}>
+              <div className="card-surface flex flex-col items-center justify-center rounded-2xl px-5 py-4 text-center">
+                <span className="font-display text-2xl text-forest">6</span>
+                <span className="text-[0.6rem] uppercase tracking-wide text-ink/50">Blends</span>
+              </div>
+            </Float>
+
+            <Float className="absolute -bottom-6 -right-6 hidden sm:block" duration={5} delay={0.4}>
+              <div className="card-surface flex items-center gap-3 rounded-2xl px-5 py-4">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest/10 text-forest">
+                  <Users className="h-5 w-5" strokeWidth={1.75} />
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-forest">10,000+</p>
+                  <p className="text-[0.65rem] text-ink/50">Happy Customers</p>
+                </div>
+              </div>
+            </Float>
           </Reveal>
         </div>
       </section>
 
+      <Marquee />
+
       {/* USP strip */}
-      <section className="border-y border-forest/10 bg-cream-dark/60">
+      <section className="border-b border-forest/10 bg-cream-dark/60">
         <div className="container-custom grid grid-cols-2 gap-8 py-12 lg:grid-cols-4">
           {usps.map((usp, i) => (
             <Reveal key={usp.title} delay={i * 0.08} className="flex items-start gap-3.5">
@@ -184,17 +235,23 @@ export default function Home() {
 
       {/* About teaser */}
       <section className="section-padding bg-forest text-cream">
-        <div className="container-custom grid items-center gap-14 lg:grid-cols-2">
-          <Reveal className="grid grid-cols-2 gap-5">
-            {products.slice(0, 4).map((product) => (
-              <div
-                key={product.id}
-                className="flex aspect-square items-center justify-center rounded-3xl"
-                style={{ backgroundColor: product.theme.soft }}
-              >
-                <SoapIllustration theme={product.theme} className="h-24 w-24 sm:h-28 sm:w-28" />
+        <div className="container-custom grid items-center gap-16 lg:grid-cols-2">
+          <Reveal className="relative">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl">
+              <Image
+                src="/images/about-story.jpg"
+                alt="Handmade soap bars wrapped in kraft paper and twine beside dried lavender"
+                fill
+                sizes="(min-width: 1024px) 480px, 90vw"
+                className="object-cover"
+              />
+            </div>
+            <Float className="absolute -bottom-6 -left-6 hidden sm:block" duration={4.5} delay={0.3}>
+              <div className="rounded-2xl bg-gold px-5 py-4 text-center shadow-xl">
+                <p className="font-display text-2xl text-forest">100%</p>
+                <p className="text-[0.6rem] uppercase tracking-wide text-forest/80">Handcrafted</p>
               </div>
-            ))}
+            </Float>
           </Reveal>
 
           <Reveal delay={0.15}>
@@ -210,15 +267,21 @@ export default function Home() {
             </p>
             <div className="mt-8 grid grid-cols-3 gap-6 border-t border-cream/15 pt-8">
               <div>
-                <p className="font-display text-2xl text-gold-light sm:text-3xl">10K+</p>
+                <p className="font-display text-2xl text-gold-light sm:text-3xl">
+                  <AnimatedCounter value={10} suffix="K+" />
+                </p>
                 <p className="mt-1 text-xs text-cream/60">Happy Customers</p>
               </div>
               <div>
-                <p className="font-display text-2xl text-gold-light sm:text-3xl">6</p>
+                <p className="font-display text-2xl text-gold-light sm:text-3xl">
+                  <AnimatedCounter value={6} />
+                </p>
                 <p className="mt-1 text-xs text-cream/60">Signature Blends</p>
               </div>
               <div>
-                <p className="font-display text-2xl text-gold-light sm:text-3xl">100%</p>
+                <p className="font-display text-2xl text-gold-light sm:text-3xl">
+                  <AnimatedCounter value={100} suffix="%" />
+                </p>
                 <p className="mt-1 text-xs text-cream/60">Vegetarian &amp; Vegan</p>
               </div>
             </div>
@@ -252,8 +315,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Gallery */}
       <section className="section-padding bg-cream-dark/60">
+        <div className="container-custom">
+          <SectionHeading
+            eyebrow="A Closer Look"
+            title="Inside the Ritual"
+            description="A peek at the textures, tools and quiet moments that inspire every Vanaura formula."
+          />
+          <div className="mt-14 grid gap-6 sm:grid-cols-3">
+            {gallery.map((item, i) => (
+              <Reveal key={item.src} delay={i * 0.1}>
+                <div className="group relative aspect-[3/4] overflow-hidden rounded-3xl shadow-lg">
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    sizes="(min-width: 1024px) 360px, 90vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest/80 via-forest/10 to-transparent transition-opacity duration-500" />
+                  <p className="font-display absolute bottom-5 left-5 text-lg text-cream">
+                    {item.caption}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="section-padding">
         <div className="container-custom">
           <SectionHeading
             eyebrow="Loved Across India"
@@ -270,7 +363,7 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="section-padding">
+      <section className="section-padding bg-cream-dark/60">
         <div className="container-custom">
           <SectionHeading eyebrow="Good to Know" title="Frequently Asked Questions" />
           <div className="mt-14">
