@@ -1,26 +1,181 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-cream: #fbf6ec;
+  --color-cream-dark: #f3ead8;
+  --color-ink: #2a2420;
+  --color-forest: #1f3a2e;
+  --color-forest-light: #2f5443;
+  --color-sage: #7c9a78;
+  --color-sage-light: #a9c1a2;
+  --color-gold: #bf9b30;
+  --color-gold-light: #e0c266;
+  --color-terracotta: #b5613f;
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-jost);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  scrollbar-color: var(--color-forest-light) var(--color-cream);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-forest);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.container-custom {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--color-forest);
+  color: var(--color-cream);
+  padding: 0.9rem 2rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  transition: all 0.35s ease;
+  border: 1px solid var(--color-forest);
+}
+
+.btn-primary:hover {
+  background: var(--color-cream);
+  color: var(--color-forest);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--color-forest);
+  padding: 0.9rem 2rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  transition: all 0.35s ease;
+  border: 1px solid var(--color-forest);
+}
+
+.btn-outline:hover {
+  background: var(--color-forest);
+  color: var(--color-cream);
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--color-gold);
+  color: var(--color-forest);
+  padding: 0.9rem 2rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  transition: all 0.35s ease;
+  border: 1px solid var(--color-gold);
+}
+
+.btn-gold:hover {
+  background: transparent;
+  color: var(--color-gold);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(120deg, var(--color-gold) 0%, var(--color-terracotta) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-terracotta);
+}
+
+.card-surface {
+  background: #fffdf8;
+  border: 1px solid rgba(31, 58, 46, 0.08);
+  box-shadow: 0 10px 40px -18px rgba(31, 58, 46, 0.25);
+}
+
+.leaf-texture {
+  position: relative;
+}
+
+.leaf-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: radial-gradient(circle at 1px 1px, rgba(31, 58, 46, 0.09) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.divider-ornament::before,
+.divider-ornament::after {
+  content: "";
+  height: 1px;
+  width: 2.5rem;
+  background: var(--color-gold);
 }
